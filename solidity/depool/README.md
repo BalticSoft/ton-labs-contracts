@@ -34,7 +34,7 @@ When using DePool you may set up the validator wallet **on the basechain**, as t
 
 With that in mind, follow [this procedure](https://docs.ton.dev/86757ecb2/p/708260-run-validator/t/08f3ce) **up to step 4.4** (the validator script in step 5 will be different) and make sure to set up at least three custodians for your wallet.
 
-> **Note**: **For Validator contest winners on the main net this wallet has to be deployed through Magister Ludi DeBot.**
+> **Note**: **For Validator contest winners on the main net this wallet has to be deployed through [Magister Ludi DeBot](https://docs.ton.dev/86757ecb2/p/151f3d-deploy-with-magister-ludi-debot) (specifically, Deployer actions from step 2 and 4 are performed through the Magister Ludi DeBot, and it is the DeBot which generates the wallet address).**
 
 Make sure that in the course of the procedure:
 
@@ -174,7 +174,11 @@ tvm_linker decode --tvc DePoolProxy.tvc
 
 `"balanceThreshold":*number*` - DePool's own balance, which it will aim to maintain. It is never staked and is spent on DePool operations only.
 
-> **Important: You will not be able to change these parameters after the DePool is deployed. They will influence the appeal of your DePool to potential participants:** `participantRewardFraction` determines what percentage of their total reward all participants will receive (too small, and other DePools might draw them away, too big, and your validator wallet might not receive enough rewards, to support validation and staking); `validatorAssurance` determines how much you take it upon yourself to invest in the DePool and lose in case of any validator node malfunction or misbehavior. If set too small, potential participants might decide you aren't risking enough and avoid your DePool in favor of others.
+> **Important: You will not be able to change all of these parameters, except participantRewardFraction,after the DePool is deployed. They will influence the appeal of your DePool to potential participants:**
+
+> `participantRewardFraction` determines what percentage of their total reward all participants will receive (too small, and other DePools might draw them away, too big, and your validator wallet might not receive enough rewards, to support validation and staking); it can be adjusted at any time by the DePool owner, but only upwards - see how below.
+
+> `validatorAssurance` determines how much you take it upon yourself to invest in the DePool and lose in case of any validator node malfunction or misbehavior. If set too small, potential participants might decide you aren't risking enough and avoid your DePool in favor of others.
 
 Example:
 
@@ -942,7 +946,16 @@ Where
 
 `<depool_address>` - address of the DePool contract.
 
-## 13. (Optional) Close DePool
+## 13. (Optional) Adjust validator and participant reward fraction
+
+If you want to make your DePool more attractive to potential participants, you may increase the fraction of the total reward they receive.
+
+DePool deployment keys are required for this action. Use the following command:
+
+
+> Note: You cannot increase the validator reward fraction. It can only be adjusted downwards.
+
+## 14. (Optional) Close DePool
 
 The deployer of the DePool can close the DePool at any time. DePool deployment keys are required for this action:
 
@@ -986,7 +999,7 @@ It should match the following values:
 
 DePool:
 
-`b4ad6c42427a12a65d9a0bffb0c2730dd9cdf830a086d94636dab7784e13eb38`
+`f2579da191233502eae40326d2b7a2a07b9c134000f0b9b064a6b96d9caea4cf`
 
 Proxies:
 
